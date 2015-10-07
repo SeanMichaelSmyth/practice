@@ -1,13 +1,10 @@
 gulp = require 'gulp'
-browserify = require 'gulp-browserify'
 clean = require 'gulp-clean'
 del = require 'del'
 coffee = require 'gulp-coffee'
 gutil = require 'gulp-util'
 jade = require 'gulp-jade'
 sass = require 'gulp-sass'
-ngTemplates = require 'gulp-ng-templates'
-gulpIgnore = require 'gulp-ignore'
 connect = require 'gulp-connect'
 
 gulp.task 'clean', ->
