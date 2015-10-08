@@ -7,6 +7,7 @@
 - `pwd` print the PWD (print working directory)
 
 ## Setup
+1. `npm install -g gulp`
 1. `open gitbash terminal`
 2. `cd practice`
 3. `npm install`
