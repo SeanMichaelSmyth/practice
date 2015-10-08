@@ -11,31 +11,13 @@ gulpIgnore = require 'gulp-ignore'
 connect = require 'gulp-connect'
 
 gulp.task 'clean', ->
-  del.sync [ 'tmp', 'build', 'dist' ]
-
-gulp.task 'fonts', ->
-  gulp.src('node_modules/bootstrap/fonts/*')
-    .pipe gulp.dest('dist/fonts')
-
-gulp.task 'copy', ['jade'], ->
-  gulp.src('tmp/templates/index.html')
-    .pipe gulp.dest('dist')
-    .pipe connect.reload()
+  del.sync [ 'dist' ]
 
 gulp.task 'jade', ->
-  gulp.src 'app/src/**/*.jade'
+  gulp.src 'app/src/index.jade'
     .pipe jade
       pretty: true
-    .pipe gulp.dest 'tmp/templates'
-
-gulp.task 'templates', ['jade'], ->
-  gulp.src ['tmp/templates/**/*.html', '!tmp/templates/index.html']
-    .pipe ngTemplates
-      filename: 'templates.js'
-      module: 'typr'
-      standalone: false
     .pipe gulp.dest 'dist'
-    .pipe connect.reload()
 
 gulp.task 'sass', ->
   gulp.src('app/src/app.sass')
@@ -47,13 +29,7 @@ gulp.task 'coffee', ->
   gulp.src('app/src/**/*.coffee')
     .pipe(coffee({bare: true})
     .on('error', gutil.log))
-    .pipe(gulp.dest('tmp/js'))
-
-gulp.task 'scripts', ['coffee'], ->
-  gulp.src('tmp/js/app.js')
-    .pipe(browserify({}))
     .pipe(gulp.dest('dist'))
-    .pipe connect.reload()
 
 gulp.task 'connect', ->
   connect.server
@@ -62,11 +38,7 @@ gulp.task 'connect', ->
 
 gulp.task 'watch', ->
   gulp.watch 'app/src/index.jade', [
-    'copy'
-  ]
-
-  gulp.watch ['app/src/**/*.jade', '!app/src/index.html'], [
-    'templates'
+    'jade'
   ]
 
   gulp.watch 'app/src/**/*.sass', [
@@ -74,18 +46,14 @@ gulp.task 'watch', ->
   ]
 
   gulp.watch 'app/src/**/*.coffee', [
-    'scripts'
+    'coffee'
   ]
 
 gulp.task 'build', [
   'clean'
   'jade'
-  'templates'
   'coffee'
-  'scripts'
   'sass'
-  'copy'
-  'fonts'
 ]
 
 gulp.task 'default', [
