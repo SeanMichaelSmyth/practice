@@ -16,6 +16,7 @@
 1. `open gitbash terminal`
 2. `cd practice`
 3. `gulp`
+4. open chrome to http://localhost:8080
 
 ## Development
 - `git pull` Pull down all changes from the remote repo

@@ -18,6 +18,7 @@ gulp.task 'jade', ->
     .pipe jade
       pretty: true
     .pipe gulp.dest 'dist'
+    .pipe connect.reload()
 
 gulp.task 'sass', ->
   gulp.src('app/src/app.sass')
@@ -30,6 +31,7 @@ gulp.task 'coffee', ->
     .pipe(coffee({bare: true})
     .on('error', gutil.log))
     .pipe(gulp.dest('dist'))
+    .pipe connect.reload()
 
 gulp.task 'connect', ->
   connect.server
